@@ -3,6 +3,7 @@ package pl.parser.nbp.infrastructure.provider;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 
@@ -16,7 +17,9 @@ public class WebDataProviderTest {
         String url = "qqwe.aszx:qwe";
 
         // when
-        sut.fetch(url);
+        try(InputStream ignored = sut.fetch(url)) {
+
+        }
     }
 
     @Test(expected = SocketTimeoutException.class)
@@ -25,7 +28,9 @@ public class WebDataProviderTest {
         String url = "http://localhost:12345/index.php";
 
         // when
-        sut.fetch(url);
+        try(InputStream ignored = sut.fetch(url)) {
+
+        }
     }
 
     @Test
@@ -34,6 +39,8 @@ public class WebDataProviderTest {
         String url = "http://google.com";
 
         // when
-        sut.fetch(url);
+        try(InputStream ignored = sut.fetch(url)) {
+
+        }
     }
 }
