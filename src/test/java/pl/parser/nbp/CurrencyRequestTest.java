@@ -96,4 +96,24 @@ public class CurrencyRequestTest {
         sut.endDate(endDate);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void should_fail_for_startDate_after_endDate() {
+        // given
+        String startDate = "2016-02-11";
+        String endDate = "2016-01-18";
+
+        // when
+        sut.endDate(endDate).startDate(startDate);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void should_fail_for_endDate_before_startDate() {
+        // given
+        String startDate = "2016-02-11";
+        String endDate = "2016-01-18";
+
+        // when
+        sut.startDate(startDate).endDate(endDate);
+    }
+
 }

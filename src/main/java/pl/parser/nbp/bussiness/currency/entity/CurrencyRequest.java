@@ -20,11 +20,15 @@ public abstract class CurrencyRequest {
 
     public CurrencyRequest startDate(String startDateStringify) {
         startDate = LocalDate.parse(startDateStringify, DateTimeUtilities.DATE_FORMATTER);
+        if (endDate != null && startDate.isAfter(endDate))
+            throw new IllegalStateException("Start date cannot be after the end date.");
         return this;
     }
 
     public CurrencyRequest endDate(String endDateStringify) {
         endDate = LocalDate.parse(endDateStringify, DateTimeUtilities.DATE_FORMATTER);
+        if (startDate != null && endDate.isBefore(startDate))
+            throw new IllegalStateException("End date cannot be before the start date.");
         return this;
     }
 
