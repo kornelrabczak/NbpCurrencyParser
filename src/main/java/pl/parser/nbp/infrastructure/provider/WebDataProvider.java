@@ -10,8 +10,8 @@ import java.net.URLConnection;
 
 public class WebDataProvider implements DataProvider {
 
-    private static final int connectTimeout = 200;
-    private static final int readTimeout = 1000;
+    private static final int CONNECT_TIMEOUT = 200;
+    private static final int READ_TIMEOUT = 1000;
 
     private final CurrencyRequest request;
 
@@ -23,8 +23,8 @@ public class WebDataProvider implements DataProvider {
     public InputStream fetch() throws IOException {
         final URL url = new URL(request.getSource());
         final URLConnection connection = url.openConnection();
-        connection.setConnectTimeout(connectTimeout);
-        connection.setReadTimeout(readTimeout);
+        connection.setConnectTimeout(CONNECT_TIMEOUT);
+        connection.setReadTimeout(READ_TIMEOUT);
         return connection.getInputStream();
     }
 }
