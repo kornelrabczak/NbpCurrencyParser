@@ -25,6 +25,7 @@ public class WebDataProvider implements DataProvider {
         final URLConnection connection = url.openConnection();
         connection.setConnectTimeout(CONNECT_TIMEOUT);
         connection.setReadTimeout(READ_TIMEOUT);
+        connection.setRequestProperty("Content-Type", "application/xml; charset=utf-8");
         return connection.getInputStream();
     }
 }

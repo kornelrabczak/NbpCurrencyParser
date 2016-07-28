@@ -8,6 +8,8 @@ import pl.parser.nbp.infrastructure.parser.StAXParser;
 import pl.parser.nbp.infrastructure.provider.WebDataProvider;
 import pl.parser.nbp.infrastructure.request.NbpRequest;
 
+import java.math.BigDecimal;
+
 public class MainClass {
 
     public static void main(String[] args) {
@@ -20,7 +22,15 @@ public class MainClass {
 
         final DataProvider provider = new WebDataProvider(request);
         final CurrencyResult result = new StAXParser().parse(provider);
-        System.out.println(result.toString());
+
+        System.out.println(result);
+
+        final BigDecimal total = result.getBids().stream()
+                .filter(bd -> bd != null)
+                .reduce(BigDecimal::add)
+                .get();
+
+        System.out.println(total.divide(new BigDecimal(result.getBids().size()), BigDecimal.ROUND_HALF_DOWN));
     }
 
 }

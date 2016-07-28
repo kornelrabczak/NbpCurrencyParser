@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class StAXParser implements CurrencyParser {
 
-    public static final EventHandler<String> NO_OP_HANDLER = noOpHandler -> {};
+    private static final EventHandler<String> NO_OP_HANDLER = noOpHandler -> {};
 
     private final Map<String, EventHandler<String>> handlers = new HashMap<>();
 
@@ -37,7 +37,7 @@ public class StAXParser implements CurrencyParser {
         XMLStreamReader streamReader = null;
 
         try (final InputStream stream = dataProvider.fetch()) {
-            streamReader = xmlInputFactory.createXMLStreamReader(stream);
+            streamReader = xmlInputFactory.createXMLStreamReader(stream, "UTF-8");
             while (streamReader.hasNext()) {
                 int eventType = streamReader.next();
                 switch (eventType) {

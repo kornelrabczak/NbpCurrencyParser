@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StAXParserTest {
 
-    CurrencyParser sut = new StAXParser();
+    private CurrencyParser sut = new StAXParser();
 
     @Test
     public void parse_test_xml() {
