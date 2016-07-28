@@ -16,7 +16,7 @@ public class NbpRequestTest {
         final String actual = request.getSource();
 
         // then
-        assertThat(actual).isEqualTo("http://api.nbp.pl/api/exchangerates/c/USD/2016-04-12/2016-04-15/");
+        assertThat(actual).isEqualTo("http://api.nbp.pl/api/exchangerates/rates/c/USD/2016-04-12/2016-04-15/");
     }
 
 }

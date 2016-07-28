@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExchangeRatesSeries>
+    <Table>C</Table>
+    <Currency>dolar amerykański</Currency>
+    <Code>USD</Code>
+    <Rates>
+        <Rate>
+            <No>72/C/NBP/2007</No>
+            <EffectiveDate>2007-04-12</EffectiveDate>
+            <Bid>2.8215</Bid>
+            <Ask>2.8785</Ask>
+        </Rate>
+        <Rate>
+            <No>73/C/NBP/2007</No>
+            <EffectiveDate>2007-04-13</EffectiveDate>
+            <Bid>2.8210</Bid>
+            <Ask>2.8780</Ask>
+        </Rate>
+        <Rate>
+            <No>74/C/NBP/2007</No>
+            <EffectiveDate>2007-04-16</EffectiveDate>
+            <Bid>2.8002</Bid>
+            <Ask>2.8568</Ask>
+        </Rate>
+        <Rate>
+            <No>75/C/NBP/2007</No>
+            <EffectiveDate>2007-04-17</EffectiveDate>
+            <Bid>2.7916</Bid>
+            <Ask>2.8480</Ask>
+        </Rate>
+        <Rate>
+            <No>76/C/NBP/2007</No>
+            <EffectiveDate>2007-04-18</EffectiveDate>
+            <Bid>2.7769</Bid>
+            <Ask>2.8329</Ask>
+        </Rate>
+        <Rate>
+            <No>77/C/NBP/2007</No>
+            <EffectiveDate>2007-04-19</EffectiveDate>
+            <Bid>2.7735</Bid>
+            <Ask>2.8295</Ask>
+        </Rate>
+        <Rate>
+            <No>78/C/NBP/2007</No>
+            <EffectiveDate>2007-04-20</EffectiveDate>
+            <Bid>2.7760</Bid>
+            <Ask>2.8320</Ask>
+        </Rate>
+    </Rates>
+</ExchangeRatesSeries>

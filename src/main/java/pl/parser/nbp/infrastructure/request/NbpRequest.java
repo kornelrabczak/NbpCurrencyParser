@@ -4,7 +4,7 @@ import pl.parser.nbp.bussiness.currency.entity.CurrencyRequest;
 
 public class NbpRequest extends CurrencyRequest {
 
-    private static final String NBP_DEFAULT_API = "http://api.nbp.pl/api/exchangerates/c/%s/%s/%s/";
+    private static final String NBP_DEFAULT_API = "http://api.nbp.pl/api/exchangerates/rates/c/%s/%s/%s/";
 
     @Override
     public String getSource() {

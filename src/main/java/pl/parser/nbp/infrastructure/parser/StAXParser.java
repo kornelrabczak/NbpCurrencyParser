@@ -2,6 +2,9 @@ package pl.parser.nbp.infrastructure.parser;
 
 import pl.parser.nbp.bussiness.currency.boundary.CurrencyParser;
 import pl.parser.nbp.bussiness.currency.boundary.DataProvider;
+import pl.parser.nbp.bussiness.currency.control.AskHandler;
+import pl.parser.nbp.bussiness.currency.control.BidHandler;
+import pl.parser.nbp.bussiness.currency.control.EventHandler;
 import pl.parser.nbp.bussiness.currency.entity.CurrencyResult;
 
 import javax.xml.stream.XMLInputFactory;
@@ -12,17 +15,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class StAXParser implements CurrencyParser {
 
-    private static Map<String, Consumer<String>> handlers = new HashMap<>();
+    public static final EventHandler<String> NO_OP_HANDLER = noOpHandler -> {};
 
-    static {
-        handlers.put("TEST", System.out::print);
+    private final Map<String, EventHandler<String>> handlers = new HashMap<>();
+
+    private final CurrencyResult result = new CurrencyResult();
+
+    public StAXParser() {
+        handlers.put(BidHandler.HANDLE_KEY, new BidHandler(result));
+        handlers.put(AskHandler.HANDLE_KEY, new AskHandler(result));
     }
 
-    private Consumer<String> currentHandler;
+    private EventHandler<String> currentHandler;
 
     @Override
     public CurrencyResult parse(DataProvider dataProvider) {
@@ -36,11 +43,13 @@ public class StAXParser implements CurrencyParser {
                 switch (eventType) {
                     case XMLStreamConstants.START_ELEMENT:
                         String handlerName = streamReader.getLocalName();
-                        currentHandler = handlers.get(handlerName);
+                        currentHandler = handlers.getOrDefault(handlerName, NO_OP_HANDLER);
                         break;
                     case XMLStreamConstants.CHARACTERS:
-                        String value = streamReader.getText();
-                        currentHandler.accept(value);
+                        currentHandler.handle(streamReader.getText());
+                        break;
+                    case XMLStreamConstants.END_ELEMENT:
+                        currentHandler = NO_OP_HANDLER;
                         break;
                 }
             }
@@ -50,7 +59,7 @@ public class StAXParser implements CurrencyParser {
             closeQuietly(streamReader);
         }
 
-        return null;
+        return result;
     }
 
     private void closeQuietly(XMLStreamReader streamReader) {
