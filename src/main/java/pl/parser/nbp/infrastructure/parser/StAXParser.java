@@ -14,16 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class StAXParser extends CurrencyParser {
+public class StAXParser implements CurrencyParser {
 
     private static Map<String, Consumer<String>> handlers = new HashMap<>();
 
     static {
         handlers.put("TEST", System.out::print);
-    }
-
-    public StAXParser(String source) {
-        super(source);
     }
 
     private Consumer<String> currentHandler;
@@ -33,7 +29,7 @@ public class StAXParser extends CurrencyParser {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         XMLStreamReader streamReader = null;
 
-        try (final InputStream stream = dataProvider.fetch(source)) {
+        try (final InputStream stream = dataProvider.fetch()) {
             streamReader = xmlInputFactory.createXMLStreamReader(stream);
             while (streamReader.hasNext()) {
                 int eventType = streamReader.next();

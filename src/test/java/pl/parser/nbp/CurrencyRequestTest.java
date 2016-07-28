@@ -2,12 +2,18 @@ package pl.parser.nbp;
 
 import org.joda.money.IllegalCurrencyException;
 import org.junit.Test;
+import pl.parser.nbp.bussiness.currency.entity.CurrencyRequest;
 
 import java.time.format.DateTimeParseException;
 
-public class CurrencyApplicationTest {
+public class CurrencyRequestTest {
 
-    private CurrencyApplication sut = new CurrencyApplication();
+    private CurrencyRequest sut = new CurrencyRequest() {
+        @Override
+        public String getSource() {
+            return "empty";
+        }
+    };
 
     @Test(expected = NullPointerException.class)
     public void should_fail_for_null_currency() {
