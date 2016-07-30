@@ -2,8 +2,7 @@ package pl.parser.nbp.infrastructure.parser;
 
 import pl.parser.nbp.bussiness.currency.boundary.CurrencyParser;
 import pl.parser.nbp.bussiness.currency.boundary.DataProvider;
-import pl.parser.nbp.bussiness.currency.control.AskHandler;
-import pl.parser.nbp.bussiness.currency.control.BidHandler;
+import pl.parser.nbp.bussiness.currency.control.BigDecimalListHandler;
 import pl.parser.nbp.bussiness.currency.control.EventHandler;
 import pl.parser.nbp.bussiness.currency.entity.CurrencyResult;
 
@@ -20,13 +19,14 @@ public class StAXParser implements CurrencyParser {
 
     private static final EventHandler<String> NO_OP_HANDLER = noOpHandler -> {};
 
+    public static final String BID_HANDLER = "Bid";
+    public static final String ASK_HANDLER = "Ask";
+
     private final Map<String, EventHandler<String>> handlers = new HashMap<>();
 
-    private final CurrencyResult result = new CurrencyResult();
-
     public StAXParser() {
-        handlers.put(BidHandler.HANDLE_KEY, new BidHandler(result));
-        handlers.put(AskHandler.HANDLE_KEY, new AskHandler(result));
+        handlers.put(BID_HANDLER, new BigDecimalListHandler());
+        handlers.put(ASK_HANDLER, new BigDecimalListHandler());
     }
 
     private EventHandler<String> currentHandler;
@@ -59,7 +59,10 @@ public class StAXParser implements CurrencyParser {
             closeQuietly(streamReader);
         }
 
-        return result;
+        return new CurrencyResult(
+                ((BigDecimalListHandler) handlers.get(BID_HANDLER)).getResult(),
+                ((BigDecimalListHandler) handlers.get(ASK_HANDLER)).getResult()
+        );
     }
 
     private void closeQuietly(XMLStreamReader streamReader) {
