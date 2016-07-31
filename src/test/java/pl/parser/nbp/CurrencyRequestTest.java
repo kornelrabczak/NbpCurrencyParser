@@ -116,4 +116,14 @@ public class CurrencyRequestTest {
         sut.startDate(startDate).endDate(endDate);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void should_fail_when_limit_exceeded() {
+        // given
+        String startDate = "2014-02-11";
+        String endDate = "2016-01-18";
+
+        // when
+        sut.startDate(startDate).endDate(endDate);
+    }
+
 }
