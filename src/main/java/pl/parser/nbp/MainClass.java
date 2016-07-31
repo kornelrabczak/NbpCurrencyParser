@@ -21,11 +21,8 @@ public class MainClass {
         final DataProvider provider = new WebDataProvider(request);
         final CurrencyResult result = new StAXParser().parse(provider);
 
-        System.out.println(result.averageAsks());
         System.out.println(result.averageBids());
-
         System.out.println(result.stdev(result.getAsks(), result.averageAsks()));
-        System.out.println(result.stdev(result.getBids(), result.averageBids()));
     }
 
 }

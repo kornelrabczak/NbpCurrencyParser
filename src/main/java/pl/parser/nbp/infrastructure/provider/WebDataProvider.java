@@ -12,6 +12,7 @@ public class WebDataProvider implements DataProvider {
 
     private static final int CONNECT_TIMEOUT = 200;
     private static final int READ_TIMEOUT = 1000;
+    private static final String CONTENT_TYPE = "application/xml; charset=utf-8";
 
     private final CurrencyRequest request;
 
@@ -25,7 +26,7 @@ public class WebDataProvider implements DataProvider {
         final URLConnection connection = url.openConnection();
         connection.setConnectTimeout(CONNECT_TIMEOUT);
         connection.setReadTimeout(READ_TIMEOUT);
-        connection.setRequestProperty("Content-Type", "application/xml; charset=utf-8");
+        connection.setRequestProperty("Content-Type", CONTENT_TYPE);
         return connection.getInputStream();
     }
 }
